@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BREG Personal</title>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<header>
+  <h1>BREG Personal</h1>
+  <button id="btnExport">Exportar</button>
+</header>
+
+<main>
+
+<section>
+  <h2>Registrar Evento</h2>
+
+  <input type="text" id="zona" placeholder="Zona"/>
+
+  <h3>Horas trabajadas</h3>
+  <input type="time" id="inicio"/>
+  <input type="time" id="fin"/>
+  <p id="horasCalc">Horas: 0</p>
+
+  <h3>Items</h3>
+  <select id="categoria"></select>
+  <select id="tipo"></select>
+  <input type="number" id="cantidad" placeholder="Cantidad"/>
+  <button id="addItem">Agregar Item</button>
+
+  <ul id="itemsList"></ul>
+
+  <input type="number" id="ingreso" placeholder="Ingreso CLP"/>
+  <input type="number" id="transporte" placeholder="Transporte"/>
+  <input type="number" id="alimentacion" placeholder="Alimentación"/>
+  <input type="number" id="otros" placeholder="Otros gastos"/>
+
+  <select id="nivel">
+    <option value="">Nivel</option>
+    <option value="alto">Alto</option>
+    <option value="medio">Medio</option>
+    <option value="bajo">Bajo</option>
+  </select>
+
+  <textarea id="eventos" placeholder="Eventos"></textarea>
+
+  <input type="text" id="correctionId" placeholder="ID a corregir (opcional)"/>
+
+  <div id="errorBox"></div>
+
+<button id="btnGuardar" disabled>Guardar Evento</button>
+
+</section>
+
+<section>
+  <h2>Historial (Audit Trail)</h2>
+  <ul id="registros"></ul>
+</section>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>

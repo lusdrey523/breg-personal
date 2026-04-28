@@ -1,0 +1,14 @@
+body { font-family: Arial; margin:0; background:#fff; }
+header { background:#6a0dad; color:white; padding:10px; display:flex; justify-content:space-between;}
+section { padding:10px; }
+
+input, select, textarea, button {
+width:100%; margin:6px 0; padding:10px;
+}
+
+button { background:#6a0dad; color:white; border:none; }
+button:disabled { background:#ccc; }
+
+#errorBox { color:red; font-size:14px; }
+
+li { border-bottom:1px solid #ddd; padding:5px; }
