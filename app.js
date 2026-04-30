@@ -219,9 +219,9 @@ record.breg = {
 };
 };
 
-Object.freeze(record.data.gastos);
-Object.freeze(record.data);
-Object.freeze(record.breg);
+// Object.freeze(record.data.gastos);
+// Object.freeze(record.data);
+// Object.freeze(record.breg);
 
 const tx = db.transaction("registros","readwrite");
 tx.objectStore("registros").add(record);
