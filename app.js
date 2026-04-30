@@ -205,9 +205,23 @@ record.data.gastos.otros;
 
 record.data.neto = record.data.ingreso - record.data.gastos.total;
 
+// 🔹 NUEVO: ingreso por hora
+record.data.ingreso_por_hora = record.data.horas > 0 
+  ? record.data.neto / record.data.horas 
+  : 0;
+
+// 🔹 BREG completo
 record.breg = {
-reserva_15: record.data.ingreso * 0.15
+  reserva_15: record.data.ingreso * 0.15,
+  disponible: record.data.ingreso 
+    - record.data.gastos.total 
+    - (record.data.ingreso * 0.15)
 };
+};
+
+Object.freeze(record.data.gastos);
+Object.freeze(record.data);
+Object.freeze(record.breg);
 
 const tx = db.transaction("registros","readwrite");
 tx.objectStore("registros").add(record);
