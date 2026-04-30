@@ -557,3 +557,7 @@ a.download="breg_audit.json";
 a.click();
 };
 };
+
+setTimeout(() => {
+  initCategorias();
+}, 500);
