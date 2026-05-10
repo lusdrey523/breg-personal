@@ -4,16 +4,16 @@
  * Version: 1.0.0
  */
 
-const CACHE_NAME = 'breg-v1.0.0';
+const CACHE_NAME = 'breg-v1';
 
-const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './styles.css',
-  './app.js',
-  './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/app.js',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
 ];
 
 // ── Install: pre-cache todos los assets estáticos ──────────────────────────
