@@ -69,7 +69,7 @@ self.addEventListener('fetch', event => {
       }).catch(() => {
         // Offline fallback – retornar index.html para navegación
         if (event.request.destination === 'document') {
-          return caches.match('./index.html');
+          return caches.match('/index.html');
         }
       });
     })
