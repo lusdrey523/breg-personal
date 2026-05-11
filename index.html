@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BREP Core</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+  <h1>BREP Core</h1>
+</header>
+
+<nav>
+  <button data-view="dashboard">Dashboard</button>
+  <button data-view="nuevo">Nuevo</button>
+  <button data-view="historial">Historial</button>
+</nav>
+
+<main>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="view active">
+  <h2>Productividad</h2>
+  <p>Total Neto: <strong id="total"></strong></p>
+  <p>Ingreso/Hora: <strong id="iph"></strong></p>
+  <p>Capital Semilla: <strong id="semilla"></strong></p>
+  <p>Deuda: <strong id="deuda"></strong></p>
+</section>
+
+<!-- NUEVO -->
+<section id="nuevo" class="view">
+  <h2>Registro Diario</h2>
+
+  <input id="zona" placeholder="Zona"/>
+  <input id="horas" type="number" placeholder="Horas trabajadas"/>
+
+  <select id="material">
+    <option value="aluminio">Aluminio</option>
+    <option value="cobre">Cobre</option>
+    <option value="bronce">Bronce</option>
+  </select>
+
+  <input id="ingreso" type="number" placeholder="Ingreso"/>
+  <input id="gastos" type="number" placeholder="Gastos"/>
+
+  <button id="guardar">Guardar</button>
+</section>
+
+<!-- HISTORIAL -->
+<section id="historial" class="view">
+  <h2>Historial</h2>
+  <div id="lista"></div>
+</section>
+
+</main>
+
+<div id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
