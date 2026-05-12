@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="BREG Personal — Financial Operating System" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BREG" />
+  <meta name="theme-color" content="#080b14" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>BREG Personal</title>
+</head>
+<body>
+
+<!-- ══ SPLASH ══ -->
+<div id="splash" class="splash">
+  <div class="sp-b">B</div>
+  <div class="sp-name">BREG</div>
+  <div class="sp-tag">Personal</div>
+  <div class="sp-bar"><div class="sp-prog"></div></div>
+  <div class="sp-sub">Financial Operating System</div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app" class="app hidden">
+
+  <header class="topbar">
+    <div class="tlogo">
+      <div class="tb">B</div>
+      <span class="tw">REG <em>Personal</em></span>
+    </div>
+    <div class="tacts">
+      <button class="icon-btn" id="btn-theme" title="Cambiar tema">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-exportar" title="Exportar datos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- INICIO / DASHBOARD -->
+    <section class="vista activa" id="v-inicio">
+
+      <div class="deuda-banner" id="deuda-banner" style="display:none">
+        <span class="db-icon">⚠</span>
+        <div class="db-body">
+          <strong>DEUDA ACTIVA</strong>
+          <span id="db-monto">$0</span>
+        </div>
+        <span class="db-tasa" id="db-tasa"></span>
+      </div>
+
+      <div class="kpi-main">
+        <div class="kpi kpi-hero">
+          <span class="kl">Neto acumulado</span>
+          <strong class="kv kv-grad" id="d-neto">$0</strong>
+          <span class="kt" id="d-tend"></span>
+        </div>
+        <div class="kpi kpi-acc">
+          <span class="kl">Capital semilla</span>
+          <strong class="kv kv-cyan" id="d-semilla">$0</strong>
+          <span class="ks">15% protegido</span>
+        </div>
+        <div class="kpi kpi-sm">
+          <span class="kl">Registros</span>
+          <strong class="kv" id="d-regs">0</strong>
+        </div>
+        <div class="kpi kpi-sm">
+          <span class="kl">Horas totales</span>
+          <strong class="kv" id="d-horas">0h</strong>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="km"><span>CLP/hora</span><strong id="d-xhora">—</strong></div>
+        <div class="km"><span>Mejor zona</span><strong id="d-zona">—</strong></div>
+        <div class="km"><span>Deuda</span><strong class="kv-danger" id="d-deuda">$0</strong></div>
+        <div class="km"><span>Interés</span><strong class="kv-warn" id="d-interes">$0</strong></div>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="chart-hdr">
+          <span class="ch-t">Neto por día</span>
+          <span class="ch-s" id="chart-rng">—</span>
+        </div>
+        <canvas id="chart-neto" height="110"></canvas>
+      </div>
+
+      <div class="last-reg" id="last-reg" style="display:none">
+        <span class="lr-lbl">Último registro</span>
+        <div class="lr-row">
+          <span id="lr-fecha">—</span>
+          <span id="lr-zona">—</span>
+          <strong class="kv-success" id="lr-neto">$0</strong>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- NUEVO REGISTRO -->
+    <section class="vista" id="v-nuevo" style="display:none">
+      <div class="fh"><h2>Nuevo Registro</h2><span class="fsub">Captura operativa</span></div>
+
+      <div class="fg">
+        <div class="fg-t">⏱ Tiempo</div>
+        <div class="field"><label>Fecha</label>
+          <input type="date" id="f-fecha" class="fi" /></div>
+        <div class="frow2">
+          <div class="field"><label>Inicio</label>
+            <input type="time" id="f-inicio" class="fi" /></div>
+          <div class="field"><label>Fin</label>
+            <input type="time" id="f-fin" class="fi" /></div>
+        </div>
+        <div id="horas-live" class="horas-live" style="display:none">
+          <span>⚡</span><span id="horas-val">0h</span>
+        </div>
+      </div>
+
+      <div class="fg">
+        <div class="fg-t">📍 Zona</div>
+        <div class="field"><label>Ruta / Sector</label>
+          <input type="text" id="f-zona" class="fi" placeholder="ej: Centro, Norte..." maxlength="100" autocomplete="off" /></div>
+        <div class="field"><label>Notas</label>
+          <textarea id="f-notas" class="fi fi-txt" rows="2" placeholder="Observaciones..." maxlength="500"></textarea></div>
+      </div>
+
+      <div class="fg">
+        <div class="fg-t">⚙ Producción</div>
+        <div class="frow2">
+          <div class="field"><label>Material</label>
+            <select id="f-cat" class="fi fi-sel">
+              <option value="aluminio">Aluminio</option>
+              <option value="cobre">Cobre</option>
+              <option value="fierro">Fierro</option>
+              <option value="bronce">Bronce</option>
+              <option value="plastico">Plástico</option>
+              <option value="papel">Papel/Cartón</option>
+              <option value="otro">Otro</option>
+            </select></div>
+          <div class="field"><label>Cantidad (kg)</label>
+            <input type="number" id="f-cant" class="fi" placeholder="0.0" min="0" step="0.1" inputmode="decimal" /></div>
+        </div>
+        <button class="btn btn-sec btn-sm" id="btn-add-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Agregar
+        </button>
+        <div id="items-list" class="items-list"></div>
+      </div>
+
+      <div class="fg">
+        <div class="fg-t">💰 Finanzas</div>
+        <div class="field"><label>Ingreso bruto (CLP)</label>
+          <div class="pref-w"><span class="pref">$</span>
+            <input type="number" id="f-ingreso" class="fi fi-pref" placeholder="0" min="0" inputmode="numeric" /></div></div>
+        <div class="frow3">
+          <div class="field"><label>Transporte</label>
+            <input type="number" id="f-trans" class="fi" placeholder="0" min="0" inputmode="numeric" /></div>
+          <div class="field"><label>Alimentación</label>
+            <input type="number" id="f-alim" class="fi" placeholder="0" min="0" inputmode="numeric" /></div>
+          <div class="field"><label>Otros</label>
+            <input type="number" id="f-otros" class="fi" placeholder="0" min="0" inputmode="numeric" /></div>
+        </div>
+      </div>
+
+      <div class="preview">
+        <div class="prev-t">Vista previa</div>
+        <div class="pr"><span>Gastos</span><strong id="p-gastos">$0</strong></div>
+        <div class="pr pr-neto"><span>Neto</span><strong id="p-neto">$0</strong></div>
+        <div class="pr pr-sem"><span>Semilla (15%)</span><strong id="p-semilla">$0</strong></div>
+        <div class="pr"><span>Disponible</span><strong id="p-disp">$0</strong></div>
+        <div class="pr" id="p-hora-row" style="display:none"><span>CLP/hora</span><strong id="p-xhora">—</strong></div>
+      </div>
+
+      <div class="factions">
+        <button class="btn btn-ghost" id="btn-cancel">Cancelar</button>
+        <button class="btn btn-prim" id="btn-save">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Guardar
+        </button>
+      </div>
+    </section>
+
+    <!-- HISTORIAL -->
+    <section class="vista" id="v-historial" style="display:none">
+      <div class="sh">
+        <h2>Historial</h2>
+        <div class="filters">
+          <button class="fbtn act" data-f="todos">Todos</button>
+          <button class="fbtn" data-f="semana">7 días</button>
+          <button class="fbtn" data-f="mes">Mes</button>
+        </div>
+      </div>
+      <div class="hstats">
+        <div class="hs"><span>Registros</span><strong id="hs-cnt">0</strong></div>
+        <div class="hs"><span>Neto total</span><strong id="hs-neto">$0</strong></div>
+        <div class="hs"><span>Promedio/día</span><strong id="hs-avg">$0</strong></div>
+      </div>
+      <div id="lista-regs" class="lista-regs">
+        <div class="empty" id="hist-empty">
+          <div class="empty-ico">📋</div>
+          <p>Aún no hay registros</p>
+          <button class="btn btn-prim btn-sm" id="btn-ir-nuevo">Crear primero</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETALLE -->
+    <section class="vista" id="v-detalle" style="display:none">
+      <div class="det-hdr">
+        <button class="back-btn" id="btn-back">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Historial
+        </button>
+        <button class="icon-btn icon-btn-danger" id="btn-del">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+      </div>
+      <div id="det-body"></div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section class="vista" id="v-analisis" style="display:none">
+      <div class="sh">
+        <h2>Analytics</h2><span class="asub">Inteligencia operativa</span>
+      </div>
+      <div class="an-grid">
+        <div class="an-card">
+          <div class="an-t">Eficiencia por zona</div>
+          <canvas id="chart-zona" height="140"></canvas>
+          <div id="zona-tabla"></div>
+        </div>
+        <div class="an-card">
+          <div class="an-t">Horas vs Ingreso</div>
+          <canvas id="chart-hrs" height="140"></canvas>
+        </div>
+        <div class="an-card">
+          <div class="an-t">Evolución de deuda</div>
+          <canvas id="chart-deuda" height="110"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bnav">
+    <button class="nb act" data-v="inicio">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Inicio</span>
+    </button>
+    <button class="nb nb-fab" id="btn-fab" data-v="nuevo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="nb" data-v="historial">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 11-0 20 10 10 0 010-20z"/><path d="M12 6v6l4 2"/></svg>
+      <span>Historial</span>
+    </button>
+    <button class="nb" data-v="analisis">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Analytics</span>
+    </button>
+  </nav>
+
+</div>
+
+<!-- TOAST -->
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<!-- MODAL -->
+<div id="modal" class="modal-ov" style="display:none">
+  <div class="modal-box">
+    <h3 id="modal-title">Confirmar</h3>
+    <p id="modal-msg">¿Estás seguro?</p>
+    <div class="modal-acts">
+      <button class="btn btn-ghost" id="modal-no">Cancelar</button>
+      <button class="btn btn-danger" id="modal-yes">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- UN SOLO SCRIPT — sin ES modules, máxima compatibilidad -->
+<script src="breg.js"></script>
+</body>
+</html>
