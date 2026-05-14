@@ -1,6 +1,6 @@
 {
-  "name": "BREG Personal",
-  "short_name": "BREG",
+  "name": "BREGPersonal",
+  "short_name": "BREGP",
   "description": "Financial Operating System para economía de calle",
   "start_url": "./",
   "display": "standalone",
